@@ -15,6 +15,7 @@ def find_dimensions(dataset_name, sample_name):
 
 def display(data, dataset_name, sample_name) :
     action_colors = {
+    "None":(0,0,0),
     "rear": (128, 0, 128),        # violet
     "avoid": (0, 128, 255),       # bleu clair
     "attack": (255, 0, 0),        # rouge
@@ -33,7 +34,8 @@ def display(data, dataset_name, sample_name) :
     surface = pygame.Surface((int(width), int(height)))
 
     running = True
-    for frame in data.values() :
+    for key in sorted(data.keys()) :
+        frame = data[key]
         if not running :
             break
         for event in pygame.event.get():
@@ -50,10 +52,13 @@ def display(data, dataset_name, sample_name) :
 
         font = pygame.font.SysFont(None, 60)
         y = 0
-        for key,value in action_colors.items():
-            text = font.render(key, True, value)
+        for ckey,cvalue in action_colors.items():
+            text = font.render(ckey, True, cvalue)
             surface.blit(text, (10, 10 + y))
             y += 35
+        text = font.render(str(key), True, (0,0,0))
+        surface.blit(text, (10, 10 + y))
+
 
         # adaptation écran
         scaled = pygame.transform.smoothscale(surface, screen.get_size())

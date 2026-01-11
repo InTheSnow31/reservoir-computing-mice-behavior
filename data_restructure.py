@@ -12,7 +12,7 @@ def import_data(dataset_name, dataset_sample):
         if row.video_frame > N_TIMEFRAME :
             break
         if row.bodypart == "body_center":
-            data = {"x": row.x, "y": row.y,"action":None}
+            data = {"x": row.x, "y": row.y,"action":"None"}
             if row.video_frame not in timeframes :
                 timeframes[row.video_frame] = {}
             timeframes[row.video_frame][row.mouse_id] = data
